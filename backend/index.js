@@ -3,6 +3,7 @@ require("dotenv").config()
 const cors = require("cors")
 const connectToDatabase = require("./config/db")
 const foodRouter = require("./routers/foodRouter")
+const userRouter = require("./routers/userRoute")
 
 
 const app = express()
@@ -18,7 +19,7 @@ app.get("/",(req,res)=>{
 // routes
 app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
-
+app.use("/api/user",userRouter)
 
 let port = process.env.PORT || 8090
 app.listen(port,()=>{
