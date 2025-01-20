@@ -5,6 +5,7 @@ const connectToDatabase = require("./config/db")
 const foodRouter = require("./routers/foodRouter")
 const userRouter = require("./routers/userRoute")
 const cartRouter = require("./routers/cartRouter")
+const orderRouter = require("./routers/orderRouter")
 
 
 const app = express()
@@ -22,6 +23,7 @@ app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
 app.use("/api/user",userRouter)
 app.use("/api/cart",cartRouter)
+app.use("/api/order",orderRouter)
 
 let port = process.env.PORT || 8090
 app.listen(port,()=>{
