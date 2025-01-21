@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const StoreContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({});
-    const url = "http://localhost:8090";
+    // const url = "http://localhost:8090";    
+    const url = "https://food-del-backend-ujt2.onrender.com"
     const [token, setToken] = useState("");
     let [food_list, setFoodList] = useState([])
 
@@ -102,7 +103,14 @@ const StoreContextProvider = ({ children }) => {
     }, []);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div style={{
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            Loading...
+            </div>;
     }
 
 

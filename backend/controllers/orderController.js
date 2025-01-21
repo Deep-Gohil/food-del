@@ -25,7 +25,7 @@ const placeOrder = async (req, res) => {
         // Prepare line items for Stripe
         const line_items = req.body.items.map((item) => ({
             price_data: {
-                currency: "usd",
+                currency: "inr",
                 product_data: {
                     name: item.name,
                 },
@@ -37,7 +37,7 @@ const placeOrder = async (req, res) => {
         // Add delivery charges
         line_items.push({
             price_data: {
-                currency: "usd",
+                currency: "inr",
                 product_data: {
                     name: "Delivery Charges",
                 },
@@ -61,4 +61,22 @@ const placeOrder = async (req, res) => {
     }
 };
 
-module.exports = { placeOrder };
+const verifyOrder = async(req,res)=>{
+    const {orderId,success} = req.body;
+    try{
+        if(success==="true"){
+            await orderModel.findByIdAndUpdate(orderId,{payment:true});
+            res.json({success:true,msg:"Payment Successful"});
+        }
+        else{
+            await orderModel.findByIdAndDelete(orderId);
+            res.json({success:false,msg:"Payment Failed"});
+        }
+    }
+    catch(error){
+        console.error("Error while verifying order:", error);
+        res.status(500).json({ success: false, msg: "Error while verifying order" });
+    }
+}
+
+module.exports = { placeOrder,verifyOrder };
