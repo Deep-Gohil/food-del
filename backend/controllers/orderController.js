@@ -79,4 +79,37 @@ const verifyOrder = async(req,res)=>{
     }
 }
 
-module.exports = { placeOrder,verifyOrder };
+const userOrders = async(req,res)=>{
+    try{
+        const orders = await orderModel.find({userId:req.body.userId});
+        res.json({success:true,data:orders});
+    }
+    catch(error){
+        console.error("Error while getting user orders:", error);
+        res.status(500).json({ success: false, msg: "Error while getting user orders" });
+    }
+}
+
+const listOrders = async(req,res)=>{
+ try{
+    const orders = await orderModel.find({})
+    res.json({success:true,data:orders});
+ }
+ catch(error){
+    console.error("Error while listing all orders:", error);
+    res.status(500).json({ success: false, msg: "Error while listing all orders" });
+ }
+}
+
+const updateStatus = async(req,res)=>{
+    try{
+        await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+        res.json({success:true,msg:"Status Updated"})
+    }
+    catch(error){
+        console.error("Error while updating order status:", error);
+        res.status(500).json({ success: false, msg: "Error while updating order status" });
+    }
+}
+
+module.exports = { placeOrder,verifyOrder,userOrders,listOrders,updateStatus };
