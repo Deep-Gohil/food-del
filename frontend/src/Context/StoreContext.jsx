@@ -33,7 +33,9 @@ const StoreContextProvider = ({ children }) => {
         for (const item in cartItems) {
             if (cartItems[item] > 0) {
                 let itemInfo = food_list.find((product) => product._id === item);
-                totalAmmount += itemInfo.price * cartItems[item];
+                if (itemInfo) { // Ensure itemInfo exists
+                    totalAmmount += itemInfo.price * cartItems[item];
+                }
             }
         }
         return totalAmmount;
