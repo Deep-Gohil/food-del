@@ -54,10 +54,10 @@ async function pingRandomEndpoint() {
 }
 
 // Run every 1 minute
-setInterval(pingRandomEndpoint, 60 * 1000);
+// setInterval(pingRandomEndpoint, 60 * 1000);
 
 // First immediate call
-pingRandomEndpoint();
+// pingRandomEndpoint();
 
 let port = process.env.PORT || 8090
 app.listen(port, () => {
